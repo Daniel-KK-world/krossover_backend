@@ -195,6 +195,14 @@
         "documentation": {}
     },
     {
+        "label": "get_db",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
         "label": "Base",
         "importPath": "database",
         "description": "database",
@@ -217,6 +225,62 @@
         "importPath": "models",
         "description": "models",
         "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "RoleEnum",
+        "importPath": "models",
+        "description": "models",
+        "isExtraImport": true,
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Depends",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "status",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Session",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
         "documentation": {}
     },
     {
@@ -244,11 +308,28 @@
         "documentation": {}
     },
     {
-        "label": "FastAPI",
-        "importPath": "fastapi",
-        "description": "fastapi",
+        "label": "CryptContext",
+        "importPath": "passlib.context",
+        "description": "passlib.context",
         "isExtraImport": true,
-        "detail": "fastapi",
+        "detail": "passlib.context",
+        "documentation": {}
+    },
+    {
+        "label": "schemas",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "schemas",
+        "description": "schemas",
+        "detail": "schemas",
+        "documentation": {}
+    },
+    {
+        "label": "auth",
+        "importPath": "routers",
+        "description": "routers",
+        "isExtraImport": true,
+        "detail": "routers",
         "documentation": {}
     },
     {
@@ -257,6 +338,14 @@
         "isExtraImport": true,
         "importPath": "uuid",
         "description": "uuid",
+        "detail": "uuid",
+        "documentation": {}
+    },
+    {
+        "label": "UUID",
+        "importPath": "uuid",
+        "description": "uuid",
+        "isExtraImport": true,
         "detail": "uuid",
         "documentation": {}
     },
@@ -286,11 +375,51 @@
         "documentation": {}
     },
     {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
         "label": "UUID",
         "importPath": "sqlalchemy.dialects.postgresql",
         "description": "sqlalchemy.dialects.postgresql",
         "isExtraImport": true,
         "detail": "sqlalchemy.dialects.postgresql",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "EmailStr",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "Field",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "ConfigDict",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
         "documentation": {}
     },
     {
@@ -348,6 +477,42 @@
         "documentation": {}
     },
     {
+        "label": "get_password_hash",
+        "kind": 2,
+        "importPath": "routers.auth",
+        "description": "routers.auth",
+        "peekOfCode": "def get_password_hash(password: str):\n    return pwd_context.hash(password)\n# --- THE REGISTER ENDPOINT ---\n@router.post(\"/register\", response_model=schemas.UserResponse, status_code=status.HTTP_201_CREATED)\ndef register_user(user: schemas.UserCreate, db: Session = Depends(get_db)):\n    # 1. Check if a user with this email or phone already exists\n    existing_user = db.query(models.User).filter(\n        (models.User.email == user.email) | (models.User.phone_number == user.phone_number)\n    ).first()\n    if existing_user:",
+        "detail": "routers.auth",
+        "documentation": {}
+    },
+    {
+        "label": "register_user",
+        "kind": 2,
+        "importPath": "routers.auth",
+        "description": "routers.auth",
+        "peekOfCode": "def register_user(user: schemas.UserCreate, db: Session = Depends(get_db)):\n    # 1. Check if a user with this email or phone already exists\n    existing_user = db.query(models.User).filter(\n        (models.User.email == user.email) | (models.User.phone_number == user.phone_number)\n    ).first()\n    if existing_user:\n        raise HTTPException(\n            status_code=status.HTTP_400_BAD_REQUEST,\n            detail=\"Email or phone number is already registered.\"\n        )",
+        "detail": "routers.auth",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "routers.auth",
+        "description": "routers.auth",
+        "peekOfCode": "router = APIRouter(\n    prefix=\"/api/v1/auth\",\n    tags=[\"Authentication\"]\n)\n# Setup the password hasher\npwd_context = CryptContext(schemes=[\"bcrypt\"], deprecated=\"auto\")\ndef get_password_hash(password: str):\n    return pwd_context.hash(password)\n# --- THE REGISTER ENDPOINT ---\n@router.post(\"/register\", response_model=schemas.UserResponse, status_code=status.HTTP_201_CREATED)",
+        "detail": "routers.auth",
+        "documentation": {}
+    },
+    {
+        "label": "pwd_context",
+        "kind": 5,
+        "importPath": "routers.auth",
+        "description": "routers.auth",
+        "peekOfCode": "pwd_context = CryptContext(schemes=[\"bcrypt\"], deprecated=\"auto\")\ndef get_password_hash(password: str):\n    return pwd_context.hash(password)\n# --- THE REGISTER ENDPOINT ---\n@router.post(\"/register\", response_model=schemas.UserResponse, status_code=status.HTTP_201_CREATED)\ndef register_user(user: schemas.UserCreate, db: Session = Depends(get_db)):\n    # 1. Check if a user with this email or phone already exists\n    existing_user = db.query(models.User).filter(\n        (models.User.email == user.email) | (models.User.phone_number == user.phone_number)\n    ).first()",
+        "detail": "routers.auth",
+        "documentation": {}
+    },
+    {
         "label": "get_db",
         "kind": 2,
         "importPath": "database",
@@ -397,7 +562,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app = FastAPI(\n    title=\"Transport Booking API\",\n    description=\"Core backend for the transport and logistics platform\",\n    version=\"1.0.0\"\n)\n# Health-check endpoint\n@app.get(\"/\")\nasync def root():\n    return {\n        \"status\": \"API is running\", ",
+        "peekOfCode": "app = FastAPI(\n    title=\"Transport Booking API\",\n    description=\"Core backend for the transport and logistics platform\",\n    version=\"1.0.0\"\n)\napp.include_router(auth.router) # connect the auth router to the main app\n# Health-check endpoint\n@app.get(\"/\")\nasync def root():\n    return {",
         "detail": "main",
         "documentation": {}
     },
@@ -489,6 +654,33 @@
         "description": "models",
         "peekOfCode": "class Review(Base):\n    __tablename__ = \"reviews\"\n    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    user_id = Column(UUID(as_uuid=True), ForeignKey(\"users.id\"))\n    service_id = Column(UUID(as_uuid=True), ForeignKey(\"services.id\"))\n    rating = Column(Integer, nullable=False)\n    comment = Column(Text)\n    user = relationship(\"User\", back_populates=\"reviews\")\n    service = relationship(\"Service\", back_populates=\"reviews\")",
         "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "UserCreate",
+        "kind": 6,
+        "importPath": "schemas",
+        "description": "schemas",
+        "peekOfCode": "class UserCreate(BaseModel):\n    \"\"\"Schema for incoming registration data\"\"\"\n    name: str = Field(..., min_length=2, max_length=100)\n    email: EmailStr\n    phone_number: str = Field(..., min_length=10, max_length=15)\n    password: str = Field(..., min_length=8, description=\"Password must be at least 8 characters\")\nclass UserLogin(BaseModel):\n    \"\"\"Schema for incoming login data\"\"\"\n    email: EmailStr\n    password: str",
+        "detail": "schemas",
+        "documentation": {}
+    },
+    {
+        "label": "UserLogin",
+        "kind": 6,
+        "importPath": "schemas",
+        "description": "schemas",
+        "peekOfCode": "class UserLogin(BaseModel):\n    \"\"\"Schema for incoming login data\"\"\"\n    email: EmailStr\n    password: str\nclass UserResponse(BaseModel):\n    \"\"\"Schema for outgoing user data (NO need for PASSWORD here!)\"\"\"\n    id: UUID\n    name: str\n    email: EmailStr\n    phone_number: str",
+        "detail": "schemas",
+        "documentation": {}
+    },
+    {
+        "label": "UserResponse",
+        "kind": 6,
+        "importPath": "schemas",
+        "description": "schemas",
+        "peekOfCode": "class UserResponse(BaseModel):\n    \"\"\"Schema for outgoing user data (NO need for PASSWORD here!)\"\"\"\n    id: UUID\n    name: str\n    email: EmailStr\n    phone_number: str\n    role: RoleEnum\n    created_at: datetime\n    # This config tells Pydantic it's okay to read data directly from an SQLAlchemy model, \n    # not just a standard Python dictionary. This is crucial for FastAPI!",
+        "detail": "schemas",
         "documentation": {}
     },
     {
