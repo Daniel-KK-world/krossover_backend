@@ -1,0 +1,350 @@
+[
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "create_engine",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Column",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "String",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Integer",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Text",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Boolean",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "ForeignKey",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "DateTime",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Numeric",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Enum",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "text",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "sessionmaker",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "declarative_base",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "relationship",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "uuid",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "uuid",
+        "description": "uuid",
+        "detail": "uuid",
+        "documentation": {}
+    },
+    {
+        "label": "enum",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "enum",
+        "description": "enum",
+        "detail": "enum",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timezone",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "UUID",
+        "importPath": "sqlalchemy.dialects.postgresql",
+        "description": "sqlalchemy.dialects.postgresql",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.dialects.postgresql",
+        "documentation": {}
+    },
+    {
+        "label": "Base",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "engine",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "get_db",
+        "kind": 2,
+        "importPath": "database",
+        "description": "database",
+        "peekOfCode": "def get_db():\n    db = SessionLocal()\n    try:\n        yield db\n    finally:\n        db.close()",
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "SQLALCHEMY_DATABASE_URL",
+        "kind": 5,
+        "importPath": "database",
+        "description": "database",
+        "peekOfCode": "SQLALCHEMY_DATABASE_URL = os.getenv(\"DATABASE_URL\")\n# Create the engine (the core interface to the database)\nengine = create_engine(SQLALCHEMY_DATABASE_URL)\n# Create a sessionmaker (this creates temporary connections to talk to the DB)\nSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\n# Create the Base class (all data models will inherit from this)\nBase = declarative_base()\n# Dependency to get a database session for your API routes\ndef get_db():\n    db = SessionLocal()",
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "engine",
+        "kind": 5,
+        "importPath": "database",
+        "description": "database",
+        "peekOfCode": "engine = create_engine(SQLALCHEMY_DATABASE_URL)\n# Create a sessionmaker (this creates temporary connections to talk to the DB)\nSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\n# Create the Base class (all data models will inherit from this)\nBase = declarative_base()\n# Dependency to get a database session for your API routes\ndef get_db():\n    db = SessionLocal()\n    try:\n        yield db",
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "SessionLocal",
+        "kind": 5,
+        "importPath": "database",
+        "description": "database",
+        "peekOfCode": "SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\n# Create the Base class (all data models will inherit from this)\nBase = declarative_base()\n# Dependency to get a database session for your API routes\ndef get_db():\n    db = SessionLocal()\n    try:\n        yield db\n    finally:\n        db.close()",
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "Base",
+        "kind": 5,
+        "importPath": "database",
+        "description": "database",
+        "peekOfCode": "Base = declarative_base()\n# Dependency to get a database session for your API routes\ndef get_db():\n    db = SessionLocal()\n    try:\n        yield db\n    finally:\n        db.close()",
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "app = FastAPI(\n    title=\"Transport Booking API\",\n    description=\"Core backend for the transport and logistics platform\",\n    version=\"1.0.0\"\n)\n# Health-check endpoint\n@app.get(\"/\")\nasync def root():\n    return {\n        \"status\": \"API is running\", ",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "RoleEnum",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class RoleEnum(str, enum.Enum):\n    CUSTOMER = \"CUSTOMER\"\n    ADMIN = \"ADMIN\"\nclass ServiceCategoryEnum(str, enum.Enum):\n    BUS_HIRE = \"BUS_HIRE\"\n    TOWING = \"TOWING\"\n    DELIVERY = \"DELIVERY\"\n    DRIVING_SCHOOL = \"DRIVING_SCHOOL\"\n    TRAVEL_TOUR = \"TRAVEL_TOUR\"\n    MECHANIC = \"MECHANIC\"",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "ServiceCategoryEnum",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class ServiceCategoryEnum(str, enum.Enum):\n    BUS_HIRE = \"BUS_HIRE\"\n    TOWING = \"TOWING\"\n    DELIVERY = \"DELIVERY\"\n    DRIVING_SCHOOL = \"DRIVING_SCHOOL\"\n    TRAVEL_TOUR = \"TRAVEL_TOUR\"\n    MECHANIC = \"MECHANIC\"\nclass BookingStatusEnum(str, enum.Enum):\n    PENDING = \"PENDING\"\n    CONFIRMED = \"CONFIRMED\"",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "BookingStatusEnum",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class BookingStatusEnum(str, enum.Enum):\n    PENDING = \"PENDING\"\n    CONFIRMED = \"CONFIRMED\"\n    COMPLETED = \"COMPLETED\"\n    CANCELLED = \"CANCELLED\"\nclass PaymentStatusEnum(str, enum.Enum):\n    PENDING = \"PENDING\"\n    SUCCESS = \"SUCCESS\"\n    FAILED = \"FAILED\"\nclass PaymentMethodEnum(str, enum.Enum):",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "PaymentStatusEnum",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class PaymentStatusEnum(str, enum.Enum):\n    PENDING = \"PENDING\"\n    SUCCESS = \"SUCCESS\"\n    FAILED = \"FAILED\"\nclass PaymentMethodEnum(str, enum.Enum):\n    MOMO = \"MOMO\"\n    CARD = \"CARD\"\n# --- MODELS ---\nclass User(Base):\n    __tablename__ = \"users\"",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "PaymentMethodEnum",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class PaymentMethodEnum(str, enum.Enum):\n    MOMO = \"MOMO\"\n    CARD = \"CARD\"\n# --- MODELS ---\nclass User(Base):\n    __tablename__ = \"users\"\n    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    role = Column(SQLEnum(RoleEnum), default=RoleEnum.CUSTOMER)\n    name = Column(String, nullable=False)\n    email = Column(String, unique=True, index=True, nullable=False)",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class User(Base):\n    __tablename__ = \"users\"\n    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    role = Column(SQLEnum(RoleEnum), default=RoleEnum.CUSTOMER)\n    name = Column(String, nullable=False)\n    email = Column(String, unique=True, index=True, nullable=False)\n    phone_number = Column(String, unique=True, nullable=False)\n    password_hash = Column(String, nullable=False)\n    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))\n    updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "Service",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class Service(Base):\n    __tablename__ = \"services\"\n    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    category = Column(SQLEnum(ServiceCategoryEnum), nullable=False)\n    name = Column(String, nullable=False)\n    description = Column(Text)\n    base_price = Column(Numeric(10, 2), nullable=False)\n    image_url = Column(String)\n    is_active = Column(Boolean, default=True)\n    bookings = relationship(\"Booking\", back_populates=\"service\")",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "Booking",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class Booking(Base):\n    __tablename__ = \"bookings\"\n    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    user_id = Column(UUID(as_uuid=True), ForeignKey(\"users.id\"))\n    service_id = Column(UUID(as_uuid=True), ForeignKey(\"services.id\"))\n    status = Column(SQLEnum(BookingStatusEnum), default=BookingStatusEnum.PENDING)\n    booking_date = Column(DateTime, default=lambda: datetime.now(timezone.utc))\n    service_date = Column(DateTime, nullable=False)\n    special_instructions = Column(Text)\n    total_amount = Column(Numeric(10, 2), nullable=False)",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "Payment",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class Payment(Base):\n    __tablename__ = \"payments\"\n    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    booking_id = Column(UUID(as_uuid=True), ForeignKey(\"bookings.id\"), unique=True)\n    gateway_reference = Column(String, unique=True) # From Paystack/Hubtel\n    amount = Column(Numeric(10, 2), nullable=False)\n    currency = Column(String, default=\"GHS\")\n    status = Column(SQLEnum(PaymentStatusEnum), default=PaymentStatusEnum.PENDING)\n    payment_method = Column(SQLEnum(PaymentMethodEnum))\n    booking = relationship(\"Booking\", back_populates=\"payment\")",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "Review",
+        "kind": 6,
+        "importPath": "models",
+        "description": "models",
+        "peekOfCode": "class Review(Base):\n    __tablename__ = \"reviews\"\n    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    user_id = Column(UUID(as_uuid=True), ForeignKey(\"users.id\"))\n    service_id = Column(UUID(as_uuid=True), ForeignKey(\"services.id\"))\n    rating = Column(Integer, nullable=False)\n    comment = Column(Text)\n    user = relationship(\"User\", back_populates=\"reviews\")\n    service = relationship(\"Service\", back_populates=\"reviews\")",
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "test_connection",
+        "kind": 2,
+        "importPath": "testdb",
+        "description": "testdb",
+        "peekOfCode": "def test_connection():\n    try:\n        # We attempt to connect and run a simple \"SELECT 1\" \n        # This just asks the database to send back the number 1.\n        with engine.connect() as connection:\n            result = connection.execute(text(\"SELECT 1\"))\n            print(\"---------------------------------------\")\n            print(\"✅ CONNECTION SUCCESSFUL!\")\n            print(f\"Database responded with: {result.fetchone()}\")\n            print(\"---------------------------------------\")",
+        "detail": "testdb",
+        "documentation": {}
+    }
+]
