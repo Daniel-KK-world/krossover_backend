@@ -12,5 +12,5 @@ app = FastAPI(
 async def root():
     return {
         "status": "API is running", 
-        "message": "Ready to build some booking routes."
+        "message": "Krossover Transport API is live."
     }
