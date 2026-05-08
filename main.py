@@ -1,6 +1,5 @@
 from fastapi import FastAPI
-
-from routers import auth
+from routers import auth, services
 
 # Initialize the FastAPI app
 app = FastAPI(
@@ -10,6 +9,7 @@ app = FastAPI(
 )
 
 app.include_router(auth.router) # connect the auth router to the main app
+app.include_router(services.router) #2. Connecting to the service router 
 
 # Health-check endpoint
 @app.get("/")
