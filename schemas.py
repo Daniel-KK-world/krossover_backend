@@ -6,8 +6,7 @@ from decimal import Decimal
 from typing import Optional
 
 # Import Enums from your models
-from models import RoleEnum, ServiceCategoryEnum 
-
+from models import RoleEnum, ServiceCategoryEnum, BookingStatusEnum
 # ----------------------------------------
 # USER AUTHENTICATION SCHEMAS
 # ----------------------------------------
@@ -71,3 +70,31 @@ class ServiceResponse(ServiceBase):
     id: UUID
 
     model_config = ConfigDict(from_attributes=True)
+
+# ==========================================
+# BOOKING SCHEMAS
+# ==========================================
+
+class BookingBase(BaseModel):
+    service_id: UUID
+    booking_date: datetime
+    notes: Optional[str] = None
+
+class BookingCreate(BookingBase):
+    """Schema for a user creating a new booking"""
+    pass
+
+class BookingStatusUpdate(BaseModel):
+    """Schema for Admin updating the status (e.g., PENDING to CONFIRMED)"""
+    status: BookingStatusEnum
+
+class BookingResponse(BookingBase):
+    """Schema for what gets returned to the frontend"""
+    id: UUID
+    user_id: UUID
+    status: BookingStatusEnum
+    total_price: Decimal
+    created_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)
+    
