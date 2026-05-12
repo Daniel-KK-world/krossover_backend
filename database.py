@@ -8,6 +8,7 @@ load_dotenv()
 
 # Get the URL
 SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL")
+pool_pre_ping=True # check if connection is alive first 
 
 # Create the engine (the core interface to the database)
 engine = create_engine(SQLALCHEMY_DATABASE_URL)

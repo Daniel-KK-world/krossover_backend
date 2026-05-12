@@ -5,6 +5,7 @@ from passlib.context import CryptContext
 # Import local files (we have to go up one directory level)
 import sys
 import os
+import security
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 from database import get_db
@@ -57,3 +58,32 @@ def register_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 
     # 5. Return the user (FastAPI uses schemas.UserResponse to filter out the password_hash!)
     return new_user
+
+# --- THE LOGIN ENDPOINT ---
+@router.post("/login", response_model=schemas.Token)
+def login(user_credentials: schemas.UserLogin, db: Session = Depends(get_db)):
+    
+    # 1. Find the user by email
+    user = db.query(models.User).filter(models.User.email == user_credentials.email).first()
+    
+    # If no user is found, throw a 403 error
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, 
+            detail="Invalid Credentials" # Security best practice: Never say "Email not found"
+        )
+        
+    # 2. Verify the password matches the hash in the database
+    if not pwd_context.verify(user_credentials.password, user.password_hash):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, 
+            detail="Invalid Credentials"
+        )
+        
+    # 3. Create the JWT Token with their ID and Role inside it
+    access_token = security.create_access_token(
+        data={"user_id": str(user.id), "role": user.role}
+    )
+    
+    # 4. Hand the token back to the user
+    return {"access_token": access_token, "token_type": "bearer"} 
