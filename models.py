@@ -77,6 +77,9 @@ class Booking(Base):
     service_date = Column(DateTime, nullable=False)
     special_instructions = Column(Text)
     total_amount = Column(Numeric(10, 2), nullable=False)
+    
+    #new addition 
+    notes = Column(String, nullable=True)
 
     user = relationship("User", back_populates="bookings")
     service = relationship("Service", back_populates="bookings")
