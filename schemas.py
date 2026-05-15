@@ -78,7 +78,7 @@ class ServiceResponse(ServiceBase):
 class BookingBase(BaseModel):
     service_id: UUID
     booking_date: datetime
-    notes: Optional[str] = None
+    special_instructions: Optional[str] = None  # <-- Changed from 'notes'
 
 class BookingCreate(BookingBase):
     """Schema for a user creating a new booking"""
@@ -93,10 +93,10 @@ class BookingResponse(BookingBase):
     id: UUID
     user_id: UUID
     status: BookingStatusEnum
-    total_price: Decimal
-    created_at: datetime
+    total_amount: Decimal  # <-- Changed from 'total_price'
 
     model_config = ConfigDict(from_attributes=True)
+    
     
 class Token(BaseModel):
     access_token: str

@@ -35,8 +35,9 @@ def create_booking(
         user_id=current_user.id,
         service_id=booking.service_id,
         booking_date=booking.booking_date,
-        notes=booking.notes,
-        total_price=service.base_price, # Base price for now (dynamic pricing comes later)
+        service_date=booking.booking_date, # Assuming service date is same as booking date for now
+        special_instructions=booking.special_instructions, 
+        total_amount=service.base_price, # <-- Changed to match  models.py
         status=models.BookingStatusEnum.PENDING
     )
     
