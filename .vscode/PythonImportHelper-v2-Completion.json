@@ -948,7 +948,7 @@
         "kind": 5,
         "importPath": "database",
         "description": "database",
-        "peekOfCode": "SQLALCHEMY_DATABASE_URL = os.getenv(\"DATABASE_URL\")\npool_pre_ping=True # check if connection is alive first \n# Create the engine (the core interface to the database)\nengine = create_engine(SQLALCHEMY_DATABASE_URL)\n# Create a sessionmaker (this creates temporary connections to talk to the DB)\nSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\n# Create the Base class (all data models will inherit from this)\nBase = declarative_base()\n# Dependency to get a database session for your API routes\ndef get_db():",
+        "peekOfCode": "SQLALCHEMY_DATABASE_URL = os.getenv(\"DATABASE_URL\")\n# Create the engine (the core interface to the database)\n# Added pool_pre_ping=True here to fix the stale connection error!\nengine = create_engine(\n    SQLALCHEMY_DATABASE_URL,\n    pool_pre_ping=True\n)\n# Create a sessionmaker (this creates temporary connections to talk to the DB)\nSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\n# Create the Base class (all data models will inherit from this)",
         "detail": "database",
         "documentation": {}
     },
@@ -957,7 +957,7 @@
         "kind": 5,
         "importPath": "database",
         "description": "database",
-        "peekOfCode": "engine = create_engine(SQLALCHEMY_DATABASE_URL)\n# Create a sessionmaker (this creates temporary connections to talk to the DB)\nSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\n# Create the Base class (all data models will inherit from this)\nBase = declarative_base()\n# Dependency to get a database session for your API routes\ndef get_db():\n    db = SessionLocal()\n    try:\n        yield db",
+        "peekOfCode": "engine = create_engine(\n    SQLALCHEMY_DATABASE_URL,\n    pool_pre_ping=True\n)\n# Create a sessionmaker (this creates temporary connections to talk to the DB)\nSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\n# Create the Base class (all data models will inherit from this)\nBase = declarative_base()\n# Dependency to get a database session for your API routes\ndef get_db():",
         "detail": "database",
         "documentation": {}
     },
