@@ -16,6 +16,54 @@
         "documentation": {}
     },
     {
+        "label": "Sequence",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Union",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "op",
+        "importPath": "alembic",
+        "description": "alembic",
+        "isExtraImport": true,
+        "detail": "alembic",
+        "documentation": {}
+    },
+    {
         "label": "op",
         "importPath": "alembic",
         "description": "alembic",
@@ -203,7 +251,31 @@
         "documentation": {}
     },
     {
+        "label": "get_db",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "get_db",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
         "label": "Base",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "get_db",
         "importPath": "database",
         "description": "database",
         "isExtraImport": true,
@@ -233,6 +305,86 @@
         "description": "models",
         "isExtraImport": true,
         "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "ServiceCategoryEnum",
+        "importPath": "models",
+        "description": "models",
+        "isExtraImport": true,
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "BookingStatusEnum",
+        "importPath": "models",
+        "description": "models",
+        "isExtraImport": true,
+        "detail": "models",
+        "documentation": {}
+    },
+    {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Depends",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "status",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Depends",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "status",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
         "documentation": {}
     },
     {
@@ -276,6 +428,46 @@
         "documentation": {}
     },
     {
+        "label": "Depends",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "status",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Session",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "Session",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
         "label": "Session",
         "importPath": "sqlalchemy.orm",
         "description": "sqlalchemy.orm",
@@ -308,11 +500,28 @@
         "documentation": {}
     },
     {
+        "label": "Session",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
         "label": "CryptContext",
         "importPath": "passlib.context",
         "description": "passlib.context",
         "isExtraImport": true,
         "detail": "passlib.context",
+        "documentation": {}
+    },
+    {
+        "label": "security",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "security",
+        "description": "security",
+        "detail": "security",
         "documentation": {}
     },
     {
@@ -322,14 +531,6 @@
         "importPath": "schemas",
         "description": "schemas",
         "detail": "schemas",
-        "documentation": {}
-    },
-    {
-        "label": "auth",
-        "importPath": "routers",
-        "description": "routers",
-        "isExtraImport": true,
-        "detail": "routers",
         "documentation": {}
     },
     {
@@ -347,6 +548,54 @@
         "description": "uuid",
         "isExtraImport": true,
         "detail": "uuid",
+        "documentation": {}
+    },
+    {
+        "label": "UUID",
+        "importPath": "uuid",
+        "description": "uuid",
+        "isExtraImport": true,
+        "detail": "uuid",
+        "documentation": {}
+    },
+    {
+        "label": "UUID",
+        "importPath": "uuid",
+        "description": "uuid",
+        "isExtraImport": true,
+        "detail": "uuid",
+        "documentation": {}
+    },
+    {
+        "label": "auth",
+        "importPath": "routers",
+        "description": "routers",
+        "isExtraImport": true,
+        "detail": "routers",
+        "documentation": {}
+    },
+    {
+        "label": "services",
+        "importPath": "routers",
+        "description": "routers",
+        "isExtraImport": true,
+        "detail": "routers",
+        "documentation": {}
+    },
+    {
+        "label": "bookings",
+        "importPath": "routers",
+        "description": "routers",
+        "isExtraImport": true,
+        "detail": "routers",
+        "documentation": {}
+    },
+    {
+        "label": "CORSMiddleware",
+        "importPath": "fastapi.middleware.cors",
+        "description": "fastapi.middleware.cors",
+        "isExtraImport": true,
+        "detail": "fastapi.middleware.cors",
         "documentation": {}
     },
     {
@@ -383,11 +632,44 @@
         "documentation": {}
     },
     {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timezone",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
         "label": "UUID",
         "importPath": "sqlalchemy.dialects.postgresql",
         "description": "sqlalchemy.dialects.postgresql",
         "isExtraImport": true,
         "detail": "sqlalchemy.dialects.postgresql",
+        "documentation": {}
+    },
+    {
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
         "documentation": {}
     },
     {
@@ -420,6 +702,65 @@
         "description": "pydantic",
         "isExtraImport": true,
         "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "field_validator",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "Decimal",
+        "importPath": "decimal",
+        "description": "decimal",
+        "isExtraImport": true,
+        "detail": "decimal",
+        "documentation": {}
+    },
+    {
+        "label": "jwt",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "jwt",
+        "description": "jwt",
+        "detail": "jwt",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPBearer",
+        "importPath": "fastapi.security",
+        "description": "fastapi.security",
+        "isExtraImport": true,
+        "detail": "fastapi.security",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPAuthorizationCredentials",
+        "importPath": "fastapi.security",
+        "description": "fastapi.security",
+        "isExtraImport": true,
+        "detail": "fastapi.security",
+        "documentation": {}
+    },
+    {
+        "label": "upgrade",
+        "kind": 2,
+        "importPath": "alembic.versions.74d64c7ada4f_add_notes_column_to_bookings",
+        "description": "alembic.versions.74d64c7ada4f_add_notes_column_to_bookings",
+        "peekOfCode": "def upgrade() -> None:\n    \"\"\"Upgrade schema.\"\"\"\n    # ### commands auto generated by Alembic - please adjust! ###\n    pass\n    # ### end Alembic commands ###\ndef downgrade() -> None:\n    \"\"\"Downgrade schema.\"\"\"\n    # ### commands auto generated by Alembic - please adjust! ###\n    pass\n    # ### end Alembic commands ###",
+        "detail": "alembic.versions.74d64c7ada4f_add_notes_column_to_bookings",
+        "documentation": {}
+    },
+    {
+        "label": "downgrade",
+        "kind": 2,
+        "importPath": "alembic.versions.74d64c7ada4f_add_notes_column_to_bookings",
+        "description": "alembic.versions.74d64c7ada4f_add_notes_column_to_bookings",
+        "peekOfCode": "def downgrade() -> None:\n    \"\"\"Downgrade schema.\"\"\"\n    # ### commands auto generated by Alembic - please adjust! ###\n    pass\n    # ### end Alembic commands ###",
+        "detail": "alembic.versions.74d64c7ada4f_add_notes_column_to_bookings",
         "documentation": {}
     },
     {
@@ -495,6 +836,15 @@
         "documentation": {}
     },
     {
+        "label": "login",
+        "kind": 2,
+        "importPath": "routers.auth",
+        "description": "routers.auth",
+        "peekOfCode": "def login(user_credentials: schemas.UserLogin, db: Session = Depends(get_db)):\n    # 1. Find the user by email\n    user = db.query(models.User).filter(models.User.email == user_credentials.email).first()\n    # If no user is found, throw a 403 error\n    if not user:\n        raise HTTPException(\n            status_code=status.HTTP_403_FORBIDDEN, \n            detail=\"Invalid Credentials\" # Security best practice: Never say \"Email not found\"\n        )\n    # 2. Verify the password matches the hash in the database",
+        "detail": "routers.auth",
+        "documentation": {}
+    },
+    {
         "label": "router",
         "kind": 5,
         "importPath": "routers.auth",
@@ -513,6 +863,78 @@
         "documentation": {}
     },
     {
+        "label": "create_booking",
+        "kind": 2,
+        "importPath": "routers.bookings",
+        "description": "routers.bookings",
+        "peekOfCode": "def create_booking(\n    booking: schemas.BookingCreate, \n    db: Session = Depends(get_db),\n    current_user: models.User = Depends(security.get_current_user) # The Bouncer!\n):\n    # First, check if the service actually exists\n    service = db.query(models.Service).filter(models.Service.id == booking.service_id).first()\n    if not service:\n        raise HTTPException(status_code=404, detail=\"Service not found\")\n    # Create the new booking. We pull the user_id straight from the token!",
+        "detail": "routers.bookings",
+        "documentation": {}
+    },
+    {
+        "label": "get_my_bookings",
+        "kind": 2,
+        "importPath": "routers.bookings",
+        "description": "routers.bookings",
+        "peekOfCode": "def get_my_bookings(\n    db: Session = Depends(get_db),\n    current_user: models.User = Depends(security.get_current_user)\n):\n    # Only return bookings that belong to the logged-in user\n    bookings = db.query(models.Booking).filter(models.Booking.user_id == current_user.id).all()\n    return bookings\n# 3. UPDATE BOOKING STATUS (Admin Only)\n@router.patch(\"/{booking_id}/status\", response_model=schemas.BookingResponse)\ndef update_booking_status(",
+        "detail": "routers.bookings",
+        "documentation": {}
+    },
+    {
+        "label": "update_booking_status",
+        "kind": 2,
+        "importPath": "routers.bookings",
+        "description": "routers.bookings",
+        "peekOfCode": "def update_booking_status(\n    booking_id: UUID,\n    status_update: schemas.BookingStatusUpdate,\n    db: Session = Depends(get_db),\n    current_user: models.User = Depends(security.get_current_user)\n):\n    # Security Check: Is this user an Admin?\n    if current_user.role != models.RoleEnum.ADMIN:\n        raise HTTPException(\n            status_code=status.HTTP_403_FORBIDDEN, ",
+        "detail": "routers.bookings",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "routers.bookings",
+        "description": "routers.bookings",
+        "peekOfCode": "router = APIRouter(\n    prefix=\"/api/v1/bookings\",\n    tags=[\"Bookings\"]\n)\n# 1. CREATE A BOOKING (Requires Auth)\n@router.post(\"/\", response_model=schemas.BookingResponse, status_code=status.HTTP_201_CREATED)\ndef create_booking(\n    booking: schemas.BookingCreate, \n    db: Session = Depends(get_db),\n    current_user: models.User = Depends(security.get_current_user) # The Bouncer!",
+        "detail": "routers.bookings",
+        "documentation": {}
+    },
+    {
+        "label": "get_all_services",
+        "kind": 2,
+        "importPath": "routers.services",
+        "description": "routers.services",
+        "peekOfCode": "def get_all_services(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):\n    # Only return active services\n    services = db.query(models.Service).filter(models.Service.is_active == True).offset(skip).limit(limit).all()\n    return services\n# 2. GET A SPECIFIC SERVICE\n@router.get(\"/{service_id}\", response_model=schemas.ServiceResponse)\ndef get_service(service_id: UUID, db: Session = Depends(get_db)):\n    service = db.query(models.Service).filter(models.Service.id == service_id).first()\n    if not service:\n        raise HTTPException(",
+        "detail": "routers.services",
+        "documentation": {}
+    },
+    {
+        "label": "get_service",
+        "kind": 2,
+        "importPath": "routers.services",
+        "description": "routers.services",
+        "peekOfCode": "def get_service(service_id: UUID, db: Session = Depends(get_db)):\n    service = db.query(models.Service).filter(models.Service.id == service_id).first()\n    if not service:\n        raise HTTPException(\n            status_code=status.HTTP_404_NOT_FOUND, \n            detail=\"Service not found\"\n        )\n    return service\n# 3. CREATE A SERVICE (To populate the DB)\n@router.post(\"/\", response_model=schemas.ServiceResponse, status_code=status.HTTP_201_CREATED)",
+        "detail": "routers.services",
+        "documentation": {}
+    },
+    {
+        "label": "create_service",
+        "kind": 2,
+        "importPath": "routers.services",
+        "description": "routers.services",
+        "peekOfCode": "def create_service(service: schemas.ServiceCreate, db: Session = Depends(get_db)):\n    # Note: Later we will lock this down so ONLY Admins can hit this endpoint.\n    new_service = models.Service(**service.model_dump())\n    db.add(new_service)\n    db.commit()\n    db.refresh(new_service)\n    return new_service",
+        "detail": "routers.services",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "routers.services",
+        "description": "routers.services",
+        "peekOfCode": "router = APIRouter(\n    prefix=\"/api/v1/services\",\n    tags=[\"Services\"]\n)\n# 1. GET ALL SERVICES (For the frontend catalog)\n@router.get(\"/\", response_model=List[schemas.ServiceResponse])\ndef get_all_services(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):\n    # Only return active services\n    services = db.query(models.Service).filter(models.Service.is_active == True).offset(skip).limit(limit).all()\n    return services",
+        "detail": "routers.services",
+        "documentation": {}
+    },
+    {
         "label": "get_db",
         "kind": 2,
         "importPath": "database",
@@ -526,7 +948,7 @@
         "kind": 5,
         "importPath": "database",
         "description": "database",
-        "peekOfCode": "SQLALCHEMY_DATABASE_URL = os.getenv(\"DATABASE_URL\")\n# Create the engine (the core interface to the database)\nengine = create_engine(SQLALCHEMY_DATABASE_URL)\n# Create a sessionmaker (this creates temporary connections to talk to the DB)\nSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\n# Create the Base class (all data models will inherit from this)\nBase = declarative_base()\n# Dependency to get a database session for your API routes\ndef get_db():\n    db = SessionLocal()",
+        "peekOfCode": "SQLALCHEMY_DATABASE_URL = os.getenv(\"DATABASE_URL\")\npool_pre_ping=True # check if connection is alive first \n# Create the engine (the core interface to the database)\nengine = create_engine(SQLALCHEMY_DATABASE_URL)\n# Create a sessionmaker (this creates temporary connections to talk to the DB)\nSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\n# Create the Base class (all data models will inherit from this)\nBase = declarative_base()\n# Dependency to get a database session for your API routes\ndef get_db():",
         "detail": "database",
         "documentation": {}
     },
@@ -562,7 +984,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app = FastAPI(\n    title=\"Transport Booking API\",\n    description=\"Core backend for the transport and logistics platform\",\n    version=\"1.0.0\"\n)\napp.include_router(auth.router) # connect the auth router to the main app\n# Health-check endpoint\n@app.get(\"/\")\nasync def root():\n    return {",
+        "peekOfCode": "app = FastAPI(\n    title=\"Transport Booking API\",\n    description=\"Core backend for the transport and logistics platform\",\n    version=\"1.0.0\"\n)\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"http://localhost:5173\"], \n    allow_credentials=True,\n    allow_methods=[\"*\"],",
         "detail": "main",
         "documentation": {}
     },
@@ -661,7 +1083,7 @@
         "kind": 6,
         "importPath": "schemas",
         "description": "schemas",
-        "peekOfCode": "class UserCreate(BaseModel):\n    \"\"\"Schema for incoming registration data\"\"\"\n    name: str = Field(..., min_length=2, max_length=100)\n    email: EmailStr\n    phone_number: str = Field(..., min_length=10, max_length=15)\n    password: str = Field(..., min_length=8, description=\"Password must be at least 8 characters\")\nclass UserLogin(BaseModel):\n    \"\"\"Schema for incoming login data\"\"\"\n    email: EmailStr\n    password: str",
+        "peekOfCode": "class UserCreate(BaseModel):\n    \"\"\"Schema for incoming registration data\"\"\"\n    name: str = Field(..., min_length=2, max_length=100)\n    email: EmailStr\n    phone_number: str = Field(..., min_length=10, max_length=15)\n    # Capped at 72 characters to prevent the bcrypt crash!\n    password: str = Field(..., min_length=8, max_length=72, description=\"Password must be at least 8 characters\")\n    # Kept your custom validator because it's great for security\n    @field_validator('password')\n    @classmethod",
         "detail": "schemas",
         "documentation": {}
     },
@@ -679,8 +1101,134 @@
         "kind": 6,
         "importPath": "schemas",
         "description": "schemas",
-        "peekOfCode": "class UserResponse(BaseModel):\n    \"\"\"Schema for outgoing user data (NO need for PASSWORD here!)\"\"\"\n    id: UUID\n    name: str\n    email: EmailStr\n    phone_number: str\n    role: RoleEnum\n    created_at: datetime\n    # This config tells Pydantic it's okay to read data directly from an SQLAlchemy model, \n    # not just a standard Python dictionary. This is crucial for FastAPI!",
+        "peekOfCode": "class UserResponse(BaseModel):\n    \"\"\"Schema for outgoing user data (NO need for PASSWORD here!)\"\"\"\n    id: UUID\n    name: str\n    email: EmailStr\n    phone_number: str\n    role: RoleEnum\n    created_at: datetime\n    model_config = ConfigDict(from_attributes=True)\n# ----------------------------------------",
         "detail": "schemas",
+        "documentation": {}
+    },
+    {
+        "label": "ServiceBase",
+        "kind": 6,
+        "importPath": "schemas",
+        "description": "schemas",
+        "peekOfCode": "class ServiceBase(BaseModel):\n    category: ServiceCategoryEnum\n    name: str = Field(..., min_length=2, max_length=150)\n    description: Optional[str] = None\n    base_price: Decimal = Field(..., ge=0, description=\"Base price in GHS\")\n    image_url: Optional[str] = None\n    is_active: bool = True\nclass ServiceCreate(ServiceBase):\n    \"\"\"Schema for Admin creating a new service\"\"\"\n    pass",
+        "detail": "schemas",
+        "documentation": {}
+    },
+    {
+        "label": "ServiceCreate",
+        "kind": 6,
+        "importPath": "schemas",
+        "description": "schemas",
+        "peekOfCode": "class ServiceCreate(ServiceBase):\n    \"\"\"Schema for Admin creating a new service\"\"\"\n    pass\nclass ServiceResponse(ServiceBase):\n    \"\"\"Schema for returning service data to the frontend\"\"\"\n    id: UUID\n    model_config = ConfigDict(from_attributes=True)\n# ==========================================\n# BOOKING SCHEMAS\n# ==========================================",
+        "detail": "schemas",
+        "documentation": {}
+    },
+    {
+        "label": "ServiceResponse",
+        "kind": 6,
+        "importPath": "schemas",
+        "description": "schemas",
+        "peekOfCode": "class ServiceResponse(ServiceBase):\n    \"\"\"Schema for returning service data to the frontend\"\"\"\n    id: UUID\n    model_config = ConfigDict(from_attributes=True)\n# ==========================================\n# BOOKING SCHEMAS\n# ==========================================\nclass BookingBase(BaseModel):\n    service_id: UUID\n    booking_date: datetime",
+        "detail": "schemas",
+        "documentation": {}
+    },
+    {
+        "label": "BookingBase",
+        "kind": 6,
+        "importPath": "schemas",
+        "description": "schemas",
+        "peekOfCode": "class BookingBase(BaseModel):\n    service_id: UUID\n    booking_date: datetime\n    special_instructions: Optional[str] = None  # <-- Changed from 'notes'\nclass BookingCreate(BookingBase):\n    \"\"\"Schema for a user creating a new booking\"\"\"\n    pass\nclass BookingStatusUpdate(BaseModel):\n    \"\"\"Schema for Admin updating the status (e.g., PENDING to CONFIRMED)\"\"\"\n    status: BookingStatusEnum",
+        "detail": "schemas",
+        "documentation": {}
+    },
+    {
+        "label": "BookingCreate",
+        "kind": 6,
+        "importPath": "schemas",
+        "description": "schemas",
+        "peekOfCode": "class BookingCreate(BookingBase):\n    \"\"\"Schema for a user creating a new booking\"\"\"\n    pass\nclass BookingStatusUpdate(BaseModel):\n    \"\"\"Schema for Admin updating the status (e.g., PENDING to CONFIRMED)\"\"\"\n    status: BookingStatusEnum\nclass BookingResponse(BookingBase):\n    \"\"\"Schema for what gets returned to the frontend\"\"\"\n    id: UUID\n    user_id: UUID",
+        "detail": "schemas",
+        "documentation": {}
+    },
+    {
+        "label": "BookingStatusUpdate",
+        "kind": 6,
+        "importPath": "schemas",
+        "description": "schemas",
+        "peekOfCode": "class BookingStatusUpdate(BaseModel):\n    \"\"\"Schema for Admin updating the status (e.g., PENDING to CONFIRMED)\"\"\"\n    status: BookingStatusEnum\nclass BookingResponse(BookingBase):\n    \"\"\"Schema for what gets returned to the frontend\"\"\"\n    id: UUID\n    user_id: UUID\n    status: BookingStatusEnum\n    total_amount: Decimal  # <-- Changed from 'total_price'\n    model_config = ConfigDict(from_attributes=True)",
+        "detail": "schemas",
+        "documentation": {}
+    },
+    {
+        "label": "BookingResponse",
+        "kind": 6,
+        "importPath": "schemas",
+        "description": "schemas",
+        "peekOfCode": "class BookingResponse(BookingBase):\n    \"\"\"Schema for what gets returned to the frontend\"\"\"\n    id: UUID\n    user_id: UUID\n    status: BookingStatusEnum\n    total_amount: Decimal  # <-- Changed from 'total_price'\n    model_config = ConfigDict(from_attributes=True)\nclass Token(BaseModel):\n    access_token: str\n    token_type: str",
+        "detail": "schemas",
+        "documentation": {}
+    },
+    {
+        "label": "Token",
+        "kind": 6,
+        "importPath": "schemas",
+        "description": "schemas",
+        "peekOfCode": "class Token(BaseModel):\n    access_token: str\n    token_type: str",
+        "detail": "schemas",
+        "documentation": {}
+    },
+    {
+        "label": "create_access_token",
+        "kind": 2,
+        "importPath": "security",
+        "description": "security",
+        "peekOfCode": "def create_access_token(data: dict):\n    \"\"\"Generates the JWT Token when a user logs in.\"\"\"\n    to_encode = data.copy()\n    expire = datetime.now(timezone.utc) + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)\n    to_encode.update({\"exp\": expire})\n    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)\n    return encoded_jwt\ndef get_current_user(token: HTTPAuthorizationCredentials = Depends(token_auth_scheme), db: Session = Depends(get_db)):\n    \"\"\"The Bouncer: Protects routes by checking if the token is valid and finding the user.\"\"\"\n    credentials_exception = HTTPException(",
+        "detail": "security",
+        "documentation": {}
+    },
+    {
+        "label": "get_current_user",
+        "kind": 2,
+        "importPath": "security",
+        "description": "security",
+        "peekOfCode": "def get_current_user(token: HTTPAuthorizationCredentials = Depends(token_auth_scheme), db: Session = Depends(get_db)):\n    \"\"\"The Bouncer: Protects routes by checking if the token is valid and finding the user.\"\"\"\n    credentials_exception = HTTPException(\n        status_code=status.HTTP_401_UNAUTHORIZED,\n        detail=\"Could not validate credentials or token expired\",\n        headers={\"WWW-Authenticate\": \"Bearer\"},\n    )\n    try:\n        # Decode the token to get the user_id\n        payload = jwt.decode(token.credentials, SECRET_KEY, algorithms=[ALGORITHM])",
+        "detail": "security",
+        "documentation": {}
+    },
+    {
+        "label": "SECRET_KEY",
+        "kind": 5,
+        "importPath": "security",
+        "description": "security",
+        "peekOfCode": "SECRET_KEY = \"krossover_super_secret_key_2026\" # Later will move this to a secure .env file\nALGORITHM = \"HS256\"\nACCESS_TOKEN_EXPIRE_MINUTES = 1440 # Token lasts for 24 hours\n#tell FastAPI to look for a \"Bearer\" token in the request headers\ntoken_auth_scheme = HTTPBearer()\ndef create_access_token(data: dict):\n    \"\"\"Generates the JWT Token when a user logs in.\"\"\"\n    to_encode = data.copy()\n    expire = datetime.now(timezone.utc) + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)\n    to_encode.update({\"exp\": expire})",
+        "detail": "security",
+        "documentation": {}
+    },
+    {
+        "label": "ALGORITHM",
+        "kind": 5,
+        "importPath": "security",
+        "description": "security",
+        "peekOfCode": "ALGORITHM = \"HS256\"\nACCESS_TOKEN_EXPIRE_MINUTES = 1440 # Token lasts for 24 hours\n#tell FastAPI to look for a \"Bearer\" token in the request headers\ntoken_auth_scheme = HTTPBearer()\ndef create_access_token(data: dict):\n    \"\"\"Generates the JWT Token when a user logs in.\"\"\"\n    to_encode = data.copy()\n    expire = datetime.now(timezone.utc) + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)\n    to_encode.update({\"exp\": expire})\n    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)",
+        "detail": "security",
+        "documentation": {}
+    },
+    {
+        "label": "ACCESS_TOKEN_EXPIRE_MINUTES",
+        "kind": 5,
+        "importPath": "security",
+        "description": "security",
+        "peekOfCode": "ACCESS_TOKEN_EXPIRE_MINUTES = 1440 # Token lasts for 24 hours\n#tell FastAPI to look for a \"Bearer\" token in the request headers\ntoken_auth_scheme = HTTPBearer()\ndef create_access_token(data: dict):\n    \"\"\"Generates the JWT Token when a user logs in.\"\"\"\n    to_encode = data.copy()\n    expire = datetime.now(timezone.utc) + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)\n    to_encode.update({\"exp\": expire})\n    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)\n    return encoded_jwt",
+        "detail": "security",
+        "documentation": {}
+    },
+    {
+        "label": "token_auth_scheme",
+        "kind": 5,
+        "importPath": "security",
+        "description": "security",
+        "peekOfCode": "token_auth_scheme = HTTPBearer()\ndef create_access_token(data: dict):\n    \"\"\"Generates the JWT Token when a user logs in.\"\"\"\n    to_encode = data.copy()\n    expire = datetime.now(timezone.utc) + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)\n    to_encode.update({\"exp\": expire})\n    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)\n    return encoded_jwt\ndef get_current_user(token: HTTPAuthorizationCredentials = Depends(token_auth_scheme), db: Session = Depends(get_db)):\n    \"\"\"The Bouncer: Protects routes by checking if the token is valid and finding the user.\"\"\"",
+        "detail": "security",
         "documentation": {}
     },
     {
