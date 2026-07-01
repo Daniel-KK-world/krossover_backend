@@ -94,6 +94,7 @@ class BookingResponse(BookingBase):
     user_id: UUID
     status: BookingStatusEnum
     total_amount: Decimal  # <-- Changed from 'total_price'
+    service_name: str # <-- Flat string, bulletproof.
 
     model_config = ConfigDict(from_attributes=True)
     

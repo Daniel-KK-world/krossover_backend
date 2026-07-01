@@ -267,6 +267,14 @@
         "documentation": {}
     },
     {
+        "label": "get_db",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
         "label": "Base",
         "importPath": "database",
         "description": "database",
@@ -420,6 +428,46 @@
         "documentation": {}
     },
     {
+        "label": "Request",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Depends",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "status",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
         "label": "FastAPI",
         "importPath": "fastapi",
         "description": "fastapi",
@@ -453,6 +501,22 @@
     },
     {
         "label": "Session",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "Session",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "joinedload",
         "importPath": "sqlalchemy.orm",
         "description": "sqlalchemy.orm",
         "isExtraImport": true,
@@ -568,6 +632,14 @@
     },
     {
         "label": "auth",
+        "importPath": "routers",
+        "description": "routers",
+        "isExtraImport": true,
+        "detail": "routers",
+        "documentation": {}
+    },
+    {
+        "label": "payments",
         "importPath": "routers",
         "description": "routers",
         "isExtraImport": true,
@@ -876,7 +948,7 @@
         "kind": 2,
         "importPath": "routers.bookings",
         "description": "routers.bookings",
-        "peekOfCode": "def get_my_bookings(\n    db: Session = Depends(get_db),\n    current_user: models.User = Depends(security.get_current_user)\n):\n    # Only return bookings that belong to the logged-in user\n    bookings = db.query(models.Booking).filter(models.Booking.user_id == current_user.id).all()\n    return bookings\n# 3. UPDATE BOOKING STATUS (Admin Only)\n@router.patch(\"/{booking_id}/status\", response_model=schemas.BookingResponse)\ndef update_booking_status(",
+        "peekOfCode": "def get_my_bookings(\n    db: Session = Depends(get_db),\n    current_user: models.User = Depends(security.get_current_user)\n):\n    # Fetch bookings for the user\n    bookings = db.query(models.Booking).filter(models.Booking.user_id == current_user.id).all()\n    # Dynamically attach service_name to each booking object\n    for b in bookings:\n        service = db.query(models.Service).filter(models.Service.id == b.service_id).first()\n        # This adds the attribute to the SQLAlchemy model instance ",
         "detail": "routers.bookings",
         "documentation": {}
     },
@@ -896,6 +968,24 @@
         "description": "routers.bookings",
         "peekOfCode": "router = APIRouter(\n    prefix=\"/api/v1/bookings\",\n    tags=[\"Bookings\"]\n)\n# 1. CREATE A BOOKING (Requires Auth)\n@router.post(\"/\", response_model=schemas.BookingResponse, status_code=status.HTTP_201_CREATED)\ndef create_booking(\n    booking: schemas.BookingCreate, \n    db: Session = Depends(get_db),\n    current_user: models.User = Depends(security.get_current_user) # The Bouncer!",
         "detail": "routers.bookings",
+        "documentation": {}
+    },
+    {
+        "label": "initialize_payment",
+        "kind": 2,
+        "importPath": "routers.payments",
+        "description": "routers.payments",
+        "peekOfCode": "def initialize_payment(\n    booking_id: uuid.UUID,\n    db: Session = Depends(get_db),\n    current_user: models.User = Depends(security.get_current_user)\n):\n    # 1. Verify the booking belongs to this user and is PENDING\n    booking = db.query(models.Booking).filter(\n        models.Booking.id == booking_id,\n        models.Booking.user_id == current_user.id\n    ).first()",
+        "detail": "routers.payments",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "routers.payments",
+        "description": "routers.payments",
+        "peekOfCode": "router = APIRouter(\n    prefix=\"/api/v1/payments\",\n    tags=[\"Payments\"]\n)\n# ---------------------------------------------------------\n# ENDPOINT 1: INITIALIZE PAYMENT (Called by your React app)\n# ---------------------------------------------------------\n@router.post(\"/initialize/{booking_id}\")\ndef initialize_payment(\n    booking_id: uuid.UUID,",
+        "detail": "routers.payments",
         "documentation": {}
     },
     {
@@ -1155,7 +1245,7 @@
         "kind": 6,
         "importPath": "schemas",
         "description": "schemas",
-        "peekOfCode": "class BookingStatusUpdate(BaseModel):\n    \"\"\"Schema for Admin updating the status (e.g., PENDING to CONFIRMED)\"\"\"\n    status: BookingStatusEnum\nclass BookingResponse(BookingBase):\n    \"\"\"Schema for what gets returned to the frontend\"\"\"\n    id: UUID\n    user_id: UUID\n    status: BookingStatusEnum\n    total_amount: Decimal  # <-- Changed from 'total_price'\n    model_config = ConfigDict(from_attributes=True)",
+        "peekOfCode": "class BookingStatusUpdate(BaseModel):\n    \"\"\"Schema for Admin updating the status (e.g., PENDING to CONFIRMED)\"\"\"\n    status: BookingStatusEnum\nclass BookingResponse(BookingBase):\n    \"\"\"Schema for what gets returned to the frontend\"\"\"\n    id: UUID\n    user_id: UUID\n    status: BookingStatusEnum\n    total_amount: Decimal  # <-- Changed from 'total_price'\n    service_name: str # <-- Flat string, bulletproof.",
         "detail": "schemas",
         "documentation": {}
     },
@@ -1164,7 +1254,7 @@
         "kind": 6,
         "importPath": "schemas",
         "description": "schemas",
-        "peekOfCode": "class BookingResponse(BookingBase):\n    \"\"\"Schema for what gets returned to the frontend\"\"\"\n    id: UUID\n    user_id: UUID\n    status: BookingStatusEnum\n    total_amount: Decimal  # <-- Changed from 'total_price'\n    model_config = ConfigDict(from_attributes=True)\nclass Token(BaseModel):\n    access_token: str\n    token_type: str",
+        "peekOfCode": "class BookingResponse(BookingBase):\n    \"\"\"Schema for what gets returned to the frontend\"\"\"\n    id: UUID\n    user_id: UUID\n    status: BookingStatusEnum\n    total_amount: Decimal  # <-- Changed from 'total_price'\n    service_name: str # <-- Flat string, bulletproof.\n    model_config = ConfigDict(from_attributes=True)\nclass Token(BaseModel):\n    access_token: str",
         "detail": "schemas",
         "documentation": {}
     },

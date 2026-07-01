@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 from typing import List
 from uuid import UUID
 
@@ -37,7 +37,7 @@ def create_booking(
         booking_date=booking.booking_date,
         service_date=booking.booking_date, # Assuming service date is same as booking date for now
         special_instructions=booking.special_instructions, 
-        total_amount=service.base_price, # <-- Changed to match  models.py
+        total_amount=service.base_price, 
         status=models.BookingStatusEnum.PENDING
     )
     
@@ -52,8 +52,16 @@ def get_my_bookings(
     db: Session = Depends(get_db),
     current_user: models.User = Depends(security.get_current_user)
 ):
-    # Only return bookings that belong to the logged-in user
+    # Fetch bookings for the user
     bookings = db.query(models.Booking).filter(models.Booking.user_id == current_user.id).all()
+    
+    # Dynamically attach service_name to each booking object
+    for b in bookings:
+        service = db.query(models.Service).filter(models.Service.id == b.service_id).first()
+        # This adds the attribute to the SQLAlchemy model instance 
+        # so Pydantic can read it during serialization
+        b.service_name = service.name if service else "Unknown Service"
+        
     return bookings
 
 # 3. UPDATE BOOKING STATUS (Admin Only)
