@@ -7,6 +7,7 @@ from typing import Optional
 
 # Import Enums from your models
 from models import RoleEnum, ServiceCategoryEnum, BookingStatusEnum
+
 # ----------------------------------------
 # USER AUTHENTICATION SCHEMAS
 # ----------------------------------------
@@ -46,6 +47,8 @@ class UserResponse(BaseModel):
     email: EmailStr
     phone_number: str
     role: RoleEnum
+    is_verified: bool = False
+    is_active: bool = True
     created_at: datetime
 
     model_config = ConfigDict(from_attributes=True)
@@ -67,6 +70,16 @@ class PasswordResetConfirm(BaseModel):
 class PasswordChange(BaseModel):
     current_password: str
     new_password: str = Field(..., min_length=8)
+
+# ─── TOKEN & LOGIN RESPONSE ──────────────────────────────
+class Token(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
+
+class LoginResponse(Token):
+    """Login response with token and user data"""
+    user: UserResponse
+
 
 # ----------------------------------------
 # SERVICE CATALOG SCHEMAS
@@ -90,14 +103,17 @@ class ServiceResponse(ServiceBase):
 
     model_config = ConfigDict(from_attributes=True)
 
+
 # ==========================================
 # BOOKING SCHEMAS
 # ==========================================
 
 class BookingBase(BaseModel):
+    """Base booking schema with all required fields"""
     service_id: UUID
     booking_date: datetime
-    special_instructions: Optional[str] = None  # <-- Changed from 'notes'
+    service_date: datetime  # ← ADDED: when the service is actually needed
+    special_instructions: Optional[str] = None
 
 class BookingCreate(BookingBase):
     """Schema for a user creating a new booking"""
@@ -107,18 +123,33 @@ class BookingStatusUpdate(BaseModel):
     """Schema for Admin updating the status (e.g., PENDING to CONFIRMED)"""
     status: BookingStatusEnum
 
-class BookingResponse(BookingBase):
+class BookingResponse(BaseModel):
     """Schema for what gets returned to the frontend"""
     id: UUID
     user_id: UUID
+    service_id: UUID  # ← ADDED: explicit service_id
     status: BookingStatusEnum
-    total_amount: Decimal  # <-- Changed from 'total_price'
-    service_name: str # <-- Flat string, bulletproof.
+    booking_date: datetime
+    service_date: datetime  # ← ADDED: when service is needed
+    special_instructions: Optional[str] = None
+    total_amount: Decimal
+    service_name: str  # ← From related Service table (not in bookings table)
 
     model_config = ConfigDict(from_attributes=True)
-    
-    
-class Token(BaseModel):
-    access_token: str
-    token_type: str
-    
+
+
+# ==========================================
+# PAYMENT SCHEMAS
+# ==========================================
+
+class PaymentInitiateResponse(BaseModel):
+    """Response when initializing a payment"""
+    checkout_url: str
+    reference: str
+    booking_id: UUID
+
+class PaymentVerifyResponse(BaseModel):
+    """Response when verifying a payment"""
+    status: str
+    message: str
+    reference: str

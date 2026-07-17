@@ -15,6 +15,7 @@ from database import get_db
 import models
 import schemas
 import security
+from schemas import LoginResponse  # ← ADD THIS IMPORT
 
 # ─── Router ──────────────────────────────────────────────
 router = APIRouter(prefix="/api/v1/auth", tags=["Authentication"])
@@ -68,7 +69,7 @@ def send_reset_email(email: str, reset_link: str):
     """
     try:
         resend.Emails.send({
-            "from": "onboarding@resend.dev",
+            "from": "noreply@kensvic.com",  # ← FIXED: Use your verified domain
             "to": email,
             "subject": "Password Reset Request",
             "html": html
@@ -121,7 +122,7 @@ def register_user(
         email=user.email,
         phone_number=user.phone_number,
         password_hash=hashed_pwd,
-        role=user.role,  # ← This now works because UserCreate has role field
+        role=user.role,
         is_verified=False,
         otp_code=otp,
         otp_expires_at=otp_expiry,
@@ -184,7 +185,7 @@ def resend_otp(
 # ═════════════════════════════════════════════════════════
 # 4. LOGIN (with verification & lockout)
 # ═════════════════════════════════════════════════════════
-@router.post("/login", response_model=schemas.Token)
+@router.post("/login", response_model=LoginResponse)  # ← CHANGED to LoginResponse
 def login(user_credentials: schemas.UserLogin, db: Session = Depends(get_db)):
     user = db.query(models.User).filter(models.User.email == user_credentials.email).first()
 
@@ -252,7 +253,13 @@ def login(user_credentials: schemas.UserLogin, db: Session = Depends(get_db)):
     access_token = security.create_access_token(
         data={"user_id": str(user.id), "role": user.role}
     )
-    return {"access_token": access_token, "token_type": "bearer"}
+    
+    # ─── RETURN TOKEN + USER DATA ──────────────────────────
+    return LoginResponse(
+        access_token=access_token,
+        token_type="bearer",
+        user=user  # SQLAlchemy model auto-converts to UserResponse
+    )
 
 # ═════════════════════════════════════════════════════════
 # 5. FORGOT PASSWORD – Request Reset

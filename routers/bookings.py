@@ -1,11 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session, joinedload
-from typing import List
-from uuid import UUID
-
-# Import your local files
+from sqlalchemy.orm import Session
+from datetime import datetime, timezone
 import sys
 import os
+
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 from database import get_db
@@ -13,79 +11,86 @@ import models
 import schemas
 import security
 
-router = APIRouter(
-    prefix="/api/v1/bookings",
-    tags=["Bookings"]
-)
+router = APIRouter(prefix="/api/v1/bookings", tags=["Bookings"])
 
-# 1. CREATE A BOOKING (Requires Auth)
+# ─── CREATE BOOKING ──────────────────────────────────────
 @router.post("/", response_model=schemas.BookingResponse, status_code=status.HTTP_201_CREATED)
 def create_booking(
-    booking: schemas.BookingCreate, 
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(security.get_current_user) # The Bouncer!
+    booking: schemas.BookingCreate,
+    current_user: models.User = Depends(security.get_current_user),
+    db: Session = Depends(get_db)
 ):
-    # First, check if the service actually exists
-    service = db.query(models.Service).filter(models.Service.id == booking.service_id).first()
+    # Get the service
+    service = db.query(models.Service).filter(
+        models.Service.id == booking.service_id,
+        models.Service.is_active == True
+    ).first()
+    
     if not service:
-        raise HTTPException(status_code=404, detail="Service not found")
-        
-    # Create the new booking. We pull the user_id straight from the token!
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Service not found or unavailable"
+        )
+    
+    # Calculate total amount
+    total_amount = service.base_price
+    
+    # Create booking
     new_booking = models.Booking(
         user_id=current_user.id,
         service_id=booking.service_id,
-        booking_date=booking.booking_date,
-        service_date=booking.booking_date, # Assuming service date is same as booking date for now
-        special_instructions=booking.special_instructions, 
-        total_amount=service.base_price, 
+        booking_date=booking.booking_date or datetime.now(timezone.utc),
+        service_date=booking.service_date or datetime.now(timezone.utc),
+        special_instructions=booking.special_instructions,
+        total_amount=total_amount,
         status=models.BookingStatusEnum.PENDING
     )
     
     db.add(new_booking)
     db.commit()
-    db.refresh(new_booking)
-    return new_booking
-
-# 2. GET MY BOOKINGS (Requires Auth)
-@router.get("/me", response_model=List[schemas.BookingResponse])
-def get_my_bookings(
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(security.get_current_user)
-):
-    # Fetch bookings for the user
-    bookings = db.query(models.Booking).filter(models.Booking.user_id == current_user.id).all()
+    db.refresh(new_booking)  # ← This loads the relationship if eager loading is set
     
-    # Dynamically attach service_name to each booking object
-    for b in bookings:
-        service = db.query(models.Service).filter(models.Service.id == b.service_id).first()
-        # This adds the attribute to the SQLAlchemy model instance 
-        # so Pydantic can read it during serialization
-        b.service_name = service.name if service else "Unknown Service"
-        
-    return bookings
+    # ─── RETURN WITH ALL FIELDS ──────────────────────────
+    return {
+        "id": new_booking.id,
+        "user_id": new_booking.user_id,
+        "service_id": new_booking.service_id,
+        "status": new_booking.status,
+        "total_amount": new_booking.total_amount,
+        "service_name": service.name,  # ← From the service we already have
+        "booking_date": new_booking.booking_date,
+        "service_date": new_booking.service_date,
+        "special_instructions": new_booking.special_instructions
+    }
 
-# 3. UPDATE BOOKING STATUS (Admin Only)
-@router.patch("/{booking_id}/status", response_model=schemas.BookingResponse)
-def update_booking_status(
-    booking_id: UUID,
-    status_update: schemas.BookingStatusUpdate,
-    db: Session = Depends(get_db),
-    current_user: models.User = Depends(security.get_current_user)
+
+# ─── GET USER'S BOOKINGS ──────────────────────────────────
+@router.get("/me", response_model=list[schemas.BookingResponse])
+def get_my_bookings(
+    current_user: models.User = Depends(security.get_current_user),
+    db: Session = Depends(get_db)
 ):
-    # Security Check: Is this user an Admin?
-    if current_user.role != models.RoleEnum.ADMIN:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN, 
-            detail="You do not have permission to perform this action."
-        )
+    bookings = db.query(models.Booking).filter(
+        models.Booking.user_id == current_user.id
+    ).order_by(models.Booking.booking_date.desc()).all()
+    
+    result = []
+    for booking in bookings:
+        # Get service name
+        service = db.query(models.Service).filter(
+            models.Service.id == booking.service_id
+        ).first()
         
-    # Find the booking
-    booking = db.query(models.Booking).filter(models.Booking.id == booking_id).first()
-    if not booking:
-        raise HTTPException(status_code=404, detail="Booking not found")
-        
-    # Update the status and save
-    booking.status = status_update.status
-    db.commit()
-    db.refresh(booking)
-    return booking
+        result.append({
+            "id": booking.id,
+            "user_id": booking.user_id,
+            "service_id": booking.service_id,
+            "status": booking.status,
+            "total_amount": booking.total_amount,
+            "service_name": service.name if service else "Unknown Service",
+            "booking_date": booking.booking_date,
+            "service_date": booking.service_date,
+            "special_instructions": booking.special_instructions
+        })
+    
+    return result
