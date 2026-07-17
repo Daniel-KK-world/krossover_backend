@@ -47,6 +47,26 @@ class User(Base):
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 
+    # ─── AUTH COLUMNS ──────────────────────────────────────────
+    # Email verification
+    is_verified = Column(Boolean, default=False)
+    otp_code = Column(String(6), nullable=True)
+    otp_expires_at = Column(DateTime(timezone=True), nullable=True)
+
+    # Password reset
+    reset_password_token = Column(String(255), nullable=True)
+    reset_password_expires_at = Column(DateTime(timezone=True), nullable=True)
+
+    # Account status
+    is_active = Column(Boolean, default=True)  # ← ADDED
+    is_suspended = Column(Boolean, default=False)  # ← ADDED
+
+    # Login security
+    failed_login_attempts = Column(Integer, default=0)
+    locked_until = Column(DateTime(timezone=True), nullable=True)
+    last_login_at = Column(DateTime(timezone=True), nullable=True)
+
+    # ─── RELATIONSHIPS ─────────────────────────────────────────
     bookings = relationship("Booking", back_populates="user")
     reviews = relationship("Review", back_populates="user")
 
@@ -88,7 +108,7 @@ class Payment(Base):
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     booking_id = Column(UUID(as_uuid=True), ForeignKey("bookings.id"), unique=True)
-    gateway_reference = Column(String, unique=True) # From Paystack/Hubtel
+    gateway_reference = Column(String, unique=True)  # From Paystack/Hubtel
     amount = Column(Numeric(10, 2), nullable=False)
     currency = Column(String, default="GHS")
     status = Column(SQLEnum(PaymentStatusEnum), default=PaymentStatusEnum.PENDING)

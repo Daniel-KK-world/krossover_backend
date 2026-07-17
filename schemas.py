@@ -18,6 +18,7 @@ class UserCreate(BaseModel):
     phone_number: str = Field(..., min_length=10, max_length=15)
     # Capped at 72 characters to prevent the bcrypt crash!
     password: str = Field(..., min_length=8, max_length=72, description="Password must be at least 8 characters")
+    role: Optional[str] = 'CUSTOMER'
 
     # Kept your custom validator because it's great for security
     @field_validator('password')
@@ -48,6 +49,24 @@ class UserResponse(BaseModel):
     created_at: datetime
 
     model_config = ConfigDict(from_attributes=True)
+
+class OTPVerify(BaseModel):
+    email: EmailStr
+    otp_code: str
+
+class OTPRequest(BaseModel):
+    email: EmailStr
+
+class PasswordResetRequest(BaseModel):
+    email: EmailStr
+
+class PasswordResetConfirm(BaseModel):
+    token: str
+    new_password: str = Field(..., min_length=8)
+
+class PasswordChange(BaseModel):
+    current_password: str
+    new_password: str = Field(..., min_length=8)
 
 # ----------------------------------------
 # SERVICE CATALOG SCHEMAS
