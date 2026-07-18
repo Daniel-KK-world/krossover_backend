@@ -112,7 +112,7 @@ class BookingBase(BaseModel):
     """Base booking schema with all required fields"""
     service_id: UUID
     booking_date: datetime
-    service_date: datetime  # ← ADDED: when the service is actually needed
+    service_date: datetime
     special_instructions: Optional[str] = None
 
 class BookingCreate(BookingBase):
@@ -127,13 +127,13 @@ class BookingResponse(BaseModel):
     """Schema for what gets returned to the frontend"""
     id: UUID
     user_id: UUID
-    service_id: UUID  # ← ADDED: explicit service_id
+    service_id: UUID
     status: BookingStatusEnum
     booking_date: datetime
-    service_date: datetime  # ← ADDED: when service is needed
+    service_date: datetime
     special_instructions: Optional[str] = None
     total_amount: Decimal
-    service_name: str  # ← From related Service table (not in bookings table)
+    service_name: str
 
     model_config = ConfigDict(from_attributes=True)
 
@@ -153,3 +153,35 @@ class PaymentVerifyResponse(BaseModel):
     status: str
     message: str
     reference: str
+
+
+# ==========================================
+# REVIEW SCHEMAS
+# ==========================================
+
+class ReviewBase(BaseModel):
+    """Base review schema"""
+    rating: int = Field(..., ge=1, le=5, description="Rating from 1-5 stars")
+    comment: Optional[str] = Field(None, max_length=1000, description="Review comment")
+
+class ReviewCreate(ReviewBase):
+    """Schema for creating a new review"""
+    service_id: UUID
+    booking_id: UUID
+
+class ReviewResponse(ReviewBase):
+    """Schema for returning review data to the frontend"""
+    id: UUID
+    user_id: UUID
+    service_id: UUID
+    booking_id: UUID
+    user_name: str  # From User model
+    service_name: str  # From Service model
+    created_at: datetime
+    updated_at: Optional[datetime] = None
+
+    model_config = ConfigDict(from_attributes=True)
+
+class ReviewUpdate(ReviewBase):
+    """Schema for updating a review"""
+    pass

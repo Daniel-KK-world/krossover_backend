@@ -123,8 +123,12 @@ class Review(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
     service_id = Column(UUID(as_uuid=True), ForeignKey("services.id"))
+    booking_id = Column(UUID(as_uuid=True), ForeignKey("bookings.id"), nullable=False)  # New Additions
     rating = Column(Integer, nullable=False)
     comment = Column(Text)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 
     user = relationship("User", back_populates="reviews")
     service = relationship("Service", back_populates="reviews")
+    booking = relationship("Booking")  # ← This relationship is optional, but it can be useful for fetching the booking details associated with a review.  

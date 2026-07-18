@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routers import auth, payments, services, bookings 
+from routers import auth, payments, services, bookings, reviews  
 from fastapi.middleware.cors import CORSMiddleware
 
 # Initialize the FastAPI app
@@ -21,6 +21,7 @@ app.include_router(auth.router) # connect the auth router to the main app
 app.include_router(services.router) #2. Connecting to the service router 
 app.include_router(bookings.router) #3. Connecting to the bookings router
 app.include_router(payments.router) #4. Connecting to the payments router   
+app.include_router(reviews.router) #4. Connecting to the reviews router
 
 # Health-check endpoint
 @app.get("/")
