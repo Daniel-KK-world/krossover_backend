@@ -51,7 +51,7 @@ def send_otp_email(email: str, otp_code: str, purpose: str = "verification"):
     """
     try:
         resend.Emails.send({
-            "from": "noreply@kensvic.com",
+            "from": "noreply@krossovertransport.com",
             "to": email,
             "subject": subject,
             "html": html
@@ -69,14 +69,14 @@ def send_reset_email(email: str, reset_link: str):
     """
     try:
         resend.Emails.send({
-            "from": "noreply@kensvic.com",  # ← FIXED: Use your verified domain
+            "from": "noreply@krossovertransport",  # ← FIXED: Use your verified domain
             "to": email,
             "subject": "Password Reset Request",
             "html": html
         })
         print(f"✅ Reset link sent to {email}")
     except Exception as e:
-        print(f"❌ Failed to send reset email: {e}")
+        print(f"❌ Failed to send reset email: {e}") 
 
 # ═════════════════════════════════════════════════════════
 # 1. REGISTER (with OTP)
