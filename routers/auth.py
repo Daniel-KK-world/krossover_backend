@@ -39,7 +39,7 @@ def generate_reset_token() -> str:
     """Generate a secure random token for password reset"""
     return secrets.token_urlsafe(32)
 
-# ─── Datetime helper (handles naive + aware safely) ─────
+# ─── Datetime helpers ───────────────────────────────────
 def _utcnow() -> datetime:
     return datetime.now(timezone.utc)
 
@@ -82,7 +82,6 @@ def send_reset_email(email: str, reset_link: str):
     """
     try:
         resend.Emails.send({
-            # ← FIX: was "noreply@krossovertransport" (missing .com) → Resend rejects it
             "from": "noreply@krossovertransport.com",
             "to": email,
             "subject": "Password Reset Request",
@@ -159,7 +158,6 @@ def verify_otp(payload: schemas.OTPVerify, db: Session = Depends(get_db)):
         return {"message": "Account already verified", "verified": True}
     if user.otp_code != payload.otp_code:
         raise HTTPException(status_code=400, detail="Invalid OTP")
-    # ← FIX: safe expiry check (naive DB datetimes no longer blow up)
     if _is_expired(user.otp_expires_at):
         raise HTTPException(status_code=400, detail="OTP expired. Request a new one.")
 
@@ -206,7 +204,6 @@ def login(user_credentials: schemas.UserLogin, db: Session = Depends(get_db)):
             headers={"WWW-Authenticate": "Bearer"}
         )
 
-    # ← FIX: safe lockout check
     if user.locked_until and not _is_expired(user.locked_until):
         remaining = int((user.locked_until - _utcnow()).total_seconds() // 60)
         raise HTTPException(
@@ -280,8 +277,7 @@ def forgot_password(
         user.reset_password_expires_at = datetime.now(timezone.utc) + timedelta(minutes=15)
         db.commit()
 
-        frontend = os.getenv('FRONTEND_URL', 'http://localhost:3000')
-        # ← FIX: URL-encode the token
+        frontend = os.getenv('FRONTEND_URL', 'https://krossovertransport.com')
         reset_link = f"{frontend}/reset-password?token={quote(token, safe='')}"
 
         background_tasks.add_task(send_reset_email, user.email, reset_link)
@@ -293,14 +289,12 @@ def forgot_password(
 # ═════════════════════════════════════════════════════════
 @router.post("/reset-password", status_code=status.HTTP_200_OK)
 def reset_password(payload: schemas.PasswordResetConfirm, db: Session = Depends(get_db)):
-    # ← FIX: strip whitespace/newlines that sneak in from JSON or URL
     token = (payload.token or "").strip()
 
     user = db.query(models.User).filter(
         models.User.reset_password_token == token
     ).first()
 
-    # ← FIX: _is_expired handles naive/aware safely
     if not user or _is_expired(user.reset_password_expires_at):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
