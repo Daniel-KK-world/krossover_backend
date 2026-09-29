@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status, BackgroundTasks
 from sqlalchemy.orm import Session
 from passlib.context import CryptContext
 from datetime import datetime, timedelta, timezone
+from urllib.parse import quote
 import secrets
 import random
 import resend
@@ -15,7 +16,7 @@ from database import get_db
 import models
 import schemas
 import security
-from schemas import LoginResponse  # ← ADD THIS IMPORT
+from schemas import LoginResponse
 
 # ─── Router ──────────────────────────────────────────────
 router = APIRouter(prefix="/api/v1/auth", tags=["Authentication"])
@@ -37,6 +38,18 @@ def generate_otp(length: int = 6) -> str:
 def generate_reset_token() -> str:
     """Generate a secure random token for password reset"""
     return secrets.token_urlsafe(32)
+
+# ─── Datetime helper (handles naive + aware safely) ─────
+def _utcnow() -> datetime:
+    return datetime.now(timezone.utc)
+
+def _is_expired(expires_at) -> bool:
+    """Return True if expires_at is in the past. Handles naive datetimes from DB."""
+    if expires_at is None:
+        return True
+    if expires_at.tzinfo is None:
+        expires_at = expires_at.replace(tzinfo=timezone.utc)
+    return expires_at < _utcnow()
 
 # ─── Resend Email Sending ──────────────────────────────
 resend.api_key = os.getenv("RESEND_API_KEY")
@@ -69,14 +82,15 @@ def send_reset_email(email: str, reset_link: str):
     """
     try:
         resend.Emails.send({
-            "from": "noreply@krossovertransport",  # ← FIXED: Use your verified domain
+            # ← FIX: was "noreply@krossovertransport" (missing .com) → Resend rejects it
+            "from": "noreply@krossovertransport.com",
             "to": email,
             "subject": "Password Reset Request",
             "html": html
         })
         print(f"✅ Reset link sent to {email}")
     except Exception as e:
-        print(f"❌ Failed to send reset email: {e}") 
+        print(f"❌ Failed to send reset email: {e}")
 
 # ═════════════════════════════════════════════════════════
 # 1. REGISTER (with OTP)
@@ -87,18 +101,15 @@ def register_user(
     background_tasks: BackgroundTasks,
     db: Session = Depends(get_db)
 ):
-    # Check existing user
     existing_user = db.query(models.User).filter(
         (models.User.email == user.email) | (models.User.phone_number == user.phone_number)
     ).first()
 
     if existing_user:
-        # If unverified, resend OTP and update password if needed
         if not existing_user.is_verified:
             otp = generate_otp()
             existing_user.otp_code = otp
             existing_user.otp_expires_at = datetime.now(timezone.utc) + timedelta(minutes=10)
-            # Update password if they changed it
             existing_user.password_hash = get_password_hash(user.password)
             db.commit()
             background_tasks.add_task(send_otp_email, existing_user.email, otp, "verification")
@@ -112,7 +123,6 @@ def register_user(
                 detail="Email or phone number is already registered."
             )
 
-    # Create new user
     hashed_pwd = get_password_hash(user.password)
     otp = generate_otp()
     otp_expiry = datetime.now(timezone.utc) + timedelta(minutes=10)
@@ -133,7 +143,6 @@ def register_user(
     db.commit()
     db.refresh(new_user)
 
-    # Send OTP in background
     background_tasks.add_task(send_otp_email, new_user.email, otp, "verification")
 
     return new_user
@@ -150,7 +159,8 @@ def verify_otp(payload: schemas.OTPVerify, db: Session = Depends(get_db)):
         return {"message": "Account already verified", "verified": True}
     if user.otp_code != payload.otp_code:
         raise HTTPException(status_code=400, detail="Invalid OTP")
-    if user.otp_expires_at < datetime.now(timezone.utc):
+    # ← FIX: safe expiry check (naive DB datetimes no longer blow up)
+    if _is_expired(user.otp_expires_at):
         raise HTTPException(status_code=400, detail="OTP expired. Request a new one.")
 
     user.is_verified = True
@@ -185,11 +195,10 @@ def resend_otp(
 # ═════════════════════════════════════════════════════════
 # 4. LOGIN (with verification & lockout)
 # ═════════════════════════════════════════════════════════
-@router.post("/login", response_model=LoginResponse)  # ← CHANGED to LoginResponse
+@router.post("/login", response_model=LoginResponse)
 def login(user_credentials: schemas.UserLogin, db: Session = Depends(get_db)):
     user = db.query(models.User).filter(models.User.email == user_credentials.email).first()
 
-    # Check if user exists
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -197,17 +206,15 @@ def login(user_credentials: schemas.UserLogin, db: Session = Depends(get_db)):
             headers={"WWW-Authenticate": "Bearer"}
         )
 
-    # Check if account is locked (due to too many failed attempts)
-    if user.locked_until and user.locked_until > datetime.now(timezone.utc):
-        remaining = int((user.locked_until - datetime.now(timezone.utc)).total_seconds() // 60)
+    # ← FIX: safe lockout check
+    if user.locked_until and not _is_expired(user.locked_until):
+        remaining = int((user.locked_until - _utcnow()).total_seconds() // 60)
         raise HTTPException(
             status_code=status.HTTP_423_LOCKED,
             detail=f"Account locked. Try again in {remaining} minutes"
         )
 
-    # Verify password
     if not verify_password(user_credentials.password, user.password_hash):
-        # Increment failed attempts
         user.failed_login_attempts = (user.failed_login_attempts or 0) + 1
         if user.failed_login_attempts >= 5:
             user.locked_until = datetime.now(timezone.utc) + timedelta(minutes=15)
@@ -223,14 +230,12 @@ def login(user_credentials: schemas.UserLogin, db: Session = Depends(get_db)):
             headers={"WWW-Authenticate": "Bearer"}
         )
 
-    # Check if verified
     if not user.is_verified:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Please verify your email before logging in"
         )
 
-    # Check if active
     if not user.is_active:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
@@ -243,22 +248,19 @@ def login(user_credentials: schemas.UserLogin, db: Session = Depends(get_db)):
             detail="Account suspended. Contact support"
         )
 
-    # Reset failed attempts on success
     user.failed_login_attempts = 0
     user.locked_until = None
     user.last_login_at = datetime.now(timezone.utc)
     db.commit()
 
-    # Create token
     access_token = security.create_access_token(
         data={"user_id": str(user.id), "role": user.role}
     )
-    
-    # ─── RETURN TOKEN + USER DATA ──────────────────────────
+
     return LoginResponse(
         access_token=access_token,
         token_type="bearer",
-        user=user  # SQLAlchemy model auto-converts to UserResponse
+        user=user
     )
 
 # ═════════════════════════════════════════════════════════
@@ -277,8 +279,13 @@ def forgot_password(
         user.reset_password_token = token
         user.reset_password_expires_at = datetime.now(timezone.utc) + timedelta(minutes=15)
         db.commit()
-        reset_link = f"{os.getenv('FRONTEND_URL', 'http://localhost:3000')}/reset-password?token={token}"
+
+        frontend = os.getenv('FRONTEND_URL', 'http://localhost:3000')
+        # ← FIX: URL-encode the token
+        reset_link = f"{frontend}/reset-password?token={quote(token, safe='')}"
+
         background_tasks.add_task(send_reset_email, user.email, reset_link)
+
     return {"message": "If your email is registered, you will receive a password reset link"}
 
 # ═════════════════════════════════════════════════════════
@@ -286,11 +293,15 @@ def forgot_password(
 # ═════════════════════════════════════════════════════════
 @router.post("/reset-password", status_code=status.HTTP_200_OK)
 def reset_password(payload: schemas.PasswordResetConfirm, db: Session = Depends(get_db)):
+    # ← FIX: strip whitespace/newlines that sneak in from JSON or URL
+    token = (payload.token or "").strip()
+
     user = db.query(models.User).filter(
-        models.User.reset_password_token == payload.token
+        models.User.reset_password_token == token
     ).first()
 
-    if not user or user.reset_password_expires_at < datetime.now(timezone.utc):
+    # ← FIX: _is_expired handles naive/aware safely
+    if not user or _is_expired(user.reset_password_expires_at):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Invalid or expired reset token"
@@ -299,7 +310,7 @@ def reset_password(payload: schemas.PasswordResetConfirm, db: Session = Depends(
     user.password_hash = get_password_hash(payload.new_password)
     user.reset_password_token = None
     user.reset_password_expires_at = None
-    user.failed_login_attempts = 0  # reset lockout
+    user.failed_login_attempts = 0
     user.locked_until = None
     db.commit()
 
